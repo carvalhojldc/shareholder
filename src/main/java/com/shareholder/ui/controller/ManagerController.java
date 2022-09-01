@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
@@ -83,6 +84,10 @@ public class ManagerController implements Initializable {
 
         String name = tfStockRegName.getText().trim();
         String description = tfStockRegDescription.getText().trim();
+        if (name.equals("")) {
+            CustomAlert.dialog("A nome da ação precisa ser informado.", AlertType.WARNING);
+            return;
+        }
 
         Stock stock = new Stock();
         stock.setStockName(name);
@@ -95,19 +100,27 @@ public class ManagerController implements Initializable {
              */
             log.info("Adding \"" + name + "\" in the database");
             Stock s = database.addNewStock(stock);
+            if (s == null) {
+                CustomAlert.dialog("Ocorreu uma falha ao tentar adicionar a ação \"" + name + "\" no sistema.", AlertType.ERROR);
+                return;
+            }
+
             table.getItems().add(s);
             lbStockRegStatus.setText("Ação cadastrada com sucesso!");
         } else {
             log.warning("The sock already exists in the database");
-            CustomAlert.dialog("A ação \"" + name + "\" já encontra-se cadastrada no sistema", Alert.AlertType.WARNING);
+            CustomAlert.dialog("A ação \"" + name + "\" já encontra-se cadastrada no sistema.", AlertType.WARNING);
         }
+
+        tfStockRegName.setText("");
+        tfStockRegDescription.setText("");
     }
 
     @FXML
     protected void onBtnStockEditClicked(ActionEvent event) {
         if (!userSelectedStock()) {
             log.info("Stock not selected to be edited");
-            CustomAlert.dialog("Selecione uma ação para prosseguir", Alert.AlertType.INFORMATION);
+            CustomAlert.dialog("Selecione uma ação para prosseguir", AlertType.INFORMATION);
             return;
         }
         Stock stock = table.getSelectionModel().selectedItemProperty().get();
@@ -120,7 +133,7 @@ public class ManagerController implements Initializable {
     protected void onBtnStockDeleteClicked(ActionEvent event) {
         if (!userSelectedStock()) {
             log.info("Stock not selected to be deleted");
-            CustomAlert.dialog("Selecione uma ação para prosseguir.", Alert.AlertType.INFORMATION);
+            CustomAlert.dialog("Selecione uma ação para prosseguir.", AlertType.INFORMATION);
             return;
         }
         Stock stock = table.getSelectionModel().getSelectedItem();
@@ -129,7 +142,7 @@ public class ManagerController implements Initializable {
         log.info("Stock to be deleted: " + name);
 
         if (!database.deleteStock(stock.getId())) {
-            CustomAlert.dialog("Falha ao remover ação do sistema.", Alert.AlertType.ERROR);
+            CustomAlert.dialog("Falha ao remover ação do sistema.", AlertType.ERROR);
             return;
         }
 
@@ -154,7 +167,11 @@ public class ManagerController implements Initializable {
 
             log.info("Stock selected: " + stock.getStockName());
         } else {
-            lbStokSelected.setText(">> Selecione uma ação");
+            if (table.getItems().size() > 0) {
+                lbStokSelected.setText(">> Selecione uma ação");
+            } else {
+                lbStokSelected.setText(">> Adcione ações ao sistema");
+            }
         }
     }
 

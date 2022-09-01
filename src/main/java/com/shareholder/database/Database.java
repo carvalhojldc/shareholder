@@ -110,7 +110,7 @@ public class Database {
 
     public List<Stock> readAllStocks() {
         final String QUERY = "SELECT * FROM stock_list";
-        List<Stock> list = new ArrayList();
+        List<Stock> list = new ArrayList<>();
 
         try {
             Statement stmt = conn.createStatement();
@@ -150,6 +150,7 @@ public class Database {
             log.info("Element inserted with ID: " + data.getId());
         } catch (SQLException e) {
             log.severe(e.getMessage());
+            return null;
         }
 
         return data;
