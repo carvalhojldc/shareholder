@@ -11,8 +11,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainApplication extends Application {
-    public static void main(String[] args) {
+public class App extends Application {
+    public static void run(String[] args) {
         String path = SystemInstall.getPath();
         if (!SystemInstall.verifyIfPathExists(path)) {
             SystemInstall.createSystemPath(path);
@@ -27,7 +27,7 @@ public class MainApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/com/ui/manager.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/com/ui/manager.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle(ProgramDef.getProgramName() + " - Gerenciamento de ações");
         stage.setScene(scene);
