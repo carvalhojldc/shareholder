@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
@@ -13,13 +14,13 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.shareholder.ui.controller.ManagerController">
    <center>
-      <TabPane prefHeight="400.0" prefWidth="703.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane prefHeight="478.0" prefWidth="816.0" stylesheets="@../../css/tabPane.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
           <Tab text="Lista de ações">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="388.0" prefWidth="800.0">
                      <children>
-                        <TableView fx:id="table" layoutY="54.0" prefHeight="687.0" prefWidth="596.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="54.0">
+                        <TableView fx:id="table" layoutY="54.0" prefHeight="237.0" prefWidth="790.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="45.0">
                            <columns>
                               <TableColumn fx:id="columnId" prefWidth="70.0" text="ID" />
                               <TableColumn fx:id="columnStockName" prefWidth="161.0" text="Código" />
@@ -28,8 +29,8 @@
                               <TableColumn fx:id="columnAveragePrice" minWidth="0.0" prefWidth="100.0" text="Preço médio" />
                            </columns>
                         </TableView>
-                        <TextField fx:id="tfSearchData" layoutX="5.0" layoutY="14.0" onKeyReleased="#onSearchRunning" prefHeight="25.0" prefWidth="244.0" AnchorPane.leftAnchor="5.0" />
-                        <Button fx:id="btnStockEdit" layoutX="537.0" layoutY="10.0" mnemonicParsing="false" onAction="#onBtnStockEditClicked" prefHeight="33.0" prefWidth="115.0" text="Ver ação" AnchorPane.rightAnchor="140.0">
+                        <TextField fx:id="tfSearchData" layoutX="5.0" layoutY="9.0" onKeyReleased="#onSearchRunning" prefHeight="25.0" prefWidth="244.0" AnchorPane.leftAnchor="5.0" />
+                        <Button fx:id="btnStockEdit" layoutX="544.0" layoutY="10.0" mnemonicParsing="false" onAction="#onBtnStockEditClicked" prefHeight="33.0" prefWidth="115.0" text="Ver ação" AnchorPane.rightAnchor="141.0" AnchorPane.topAnchor="5.0">
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -41,7 +42,7 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btnStockDelete" layoutX="666.0" layoutY="10.0" mnemonicParsing="false" onAction="#onBtnStockDeleteClicked" prefHeight="33.0" prefWidth="120.0" text="Deletar ação" AnchorPane.rightAnchor="5.0">
+                        <Button fx:id="btnStockDelete" layoutX="666.0" layoutY="10.0" mnemonicParsing="false" onAction="#onBtnStockDeleteClicked" prefHeight="33.0" prefWidth="127.0" text="Deletar ação" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -53,23 +54,39 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Label fx:id="lbStokSelected" layoutX="4.0" layoutY="349.0" prefHeight="17.0" prefWidth="790.0" text="&gt;&gt; Selecione uma ação ou realize um cadastro" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+                        <Label fx:id="lbStokSelected" alignment="CENTER" layoutX="261.0" layoutY="13.0" prefHeight="17.0" prefWidth="278.0" text="&gt;&gt; Selecione uma ação ou realize um cadastro" AnchorPane.leftAnchor="261.0" AnchorPane.rightAnchor="261.0" AnchorPane.topAnchor="13.0">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font></Label>
+                        <TitledPane collapsible="false" layoutX="2.0" layoutY="339.0" prefHeight="71.0" prefWidth="790.0" text="Cadastrar ação" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+                           <content>
+                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="btnStockReg" layoutX="690.0" layoutY="6.0" onAction="#onBtnStockRegClicked" text="Cadastrar">
+                                       <graphic>
+                                          <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../imgs/add.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código" wrappingWidth="159.150390625" />
+                                    <TextField fx:id="tfStockRegName" layoutX="60.0" layoutY="9.0" prefHeight="25.0" prefWidth="162.0" />
+                                    <Text layoutX="231.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição" wrappingWidth="159.150390625" />
+                                    <TextField fx:id="tfStockRegDescription" layoutX="290.0" layoutY="9.0" prefHeight="25.0" prefWidth="391.0" />
+                                 </children>
+                              </Pane>
+                           </content>
+                        </TitledPane>
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Cadastro de ações">
+          <Tab text="Tesouro direto">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="btnStockReg" layoutX="14.0" layoutY="164.0" onAction="#onBtnStockRegClicked" text="Cadastrar" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="164.0" />
-                        <Text layoutX="15.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código da ação" wrappingWidth="159.150390625" />
-                        <TextField fx:id="tfStockRegName" layoutX="15.0" layoutY="49.0" prefHeight="25.0" prefWidth="399.0" />
-                        <TextField fx:id="tfStockRegDescription" layoutX="15.0" layoutY="112.0" prefHeight="25.0" prefWidth="399.0" />
-                        <Text layoutX="15.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição" wrappingWidth="159.150390625" />
                         <Label fx:id="lbStockRegStatus" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="130.0" layoutY="161.0" prefHeight="31.0" prefWidth="284.0" text="Digite as informações para cadastro">
                            <font>
                               <Font name="System Bold" size="12.0" />
